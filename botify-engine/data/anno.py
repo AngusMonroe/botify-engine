@@ -42,6 +42,9 @@ class Intent(Document):
     suppressed = BooleanField(default=False)
 
 class Business(Document):
+    # def __init__(self, email, name):
+    #     self.email = email
+    #     self.name = name
     email = EmailField()
     name = StringField()
 

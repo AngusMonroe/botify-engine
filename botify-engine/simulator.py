@@ -7,13 +7,24 @@ from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
 
 
-def bio_convert(len, name):
+def bio_convert_zh(len, name):
     """ transfer name to BIO tag"
     """
     if name is None:
         return ['O' for _ in range(len)]
     ret = [u'I-{}'.format(name) for _ in range(len)]
     ret[0] = u'B-{}'.format(name)
+    return ret
+
+
+def bio_convert_en(len, name):
+    """ transfer name to BIO tag"
+    """
+    name_zh_to_en = {'学术机构': 'ORG', '年份': 'DATE', '学者': 'PER', '学术关键词': 'KEY', '会议': 'CON'}
+    if name is None:
+        return ['O' for _ in range(len)]
+    ret = [u'I-{}'.format(name_zh_to_en[name]) for _ in range(len)]
+    ret[0] = u'B-{}'.format(name_zh_to_en[name])
     return ret
 
 
@@ -111,7 +122,8 @@ class node:
         if len(self.children) == 0:
             if type(self.content) == list:
                 text = random.choice(self.content)
-                return text, bio_convert(len(text), self.entity), bio_convert(len(text), self.role)
+                # return text, bio_convert_zh(len(text), self.entity), bio_convert_zh(len(text), self.role)
+                return text, bio_convert_en(len(text), self.entity), bio_convert_en(len(text), self.role)
             else:
                 text = self.content
             if random.random() < self.p_cut:
@@ -120,7 +132,8 @@ class node:
                     if random.random() > self.p_word_cut:
                         n_text += char
                 text = n_text
-            return text, bio_convert(len(text), self.entity), bio_convert(len(text), self.role)
+            # return text, bio_convert_zh(len(text), self.entity), bio_convert_zh(len(text), self.role)
+            return text, bio_convert_en(len(text), self.entity), bio_convert_en(len(text), self.role)
         else:
             if self.pick_one:
                 i = weighted_sample(self.weights)
@@ -185,14 +198,17 @@ class simulator:
             anno = {'intent': self.intents[i], 'question': {'text': text}, 'entity_mentions': []}
             ii = 0
             while ii < len(entity):
-                if entity[ii][0] == 'B':
-                    jj = ii + 1
-                    while jj < len(entity) and entity[jj][0] == 'I':
-                        jj += 1
-                    anno['entity_mentions'].append({'start': ii, 'end': jj, 'snippet': text[ii: jj],
-                        'entity': entity[ii].split('-')[-1], 'role': role[ii].split('-')[-1]})
-                    ii = jj
-                else:
-                    ii += 1
+                # if entity[ii][0] == 'B':
+                #     jj = ii + 1
+                #     while jj < len(entity) and entity[jj][0] == 'I':
+                #         jj += 1
+                #     anno['entity_mentions'].append({'start': ii, 'end': jj, 'snippet': text[ii: jj],
+                #         'entity': entity[ii].split('-')[-1], 'role': role[ii].split('-')[-1]})
+                #
+                #     ii = jj
+                # else:
+                #     ii += 1
+                anno['entity_mentions'].append({'snippet': text[ii], 'entity': entity[ii], 'role': role[ii]})
+                ii += 1
             annos.append(anno)
         return annos

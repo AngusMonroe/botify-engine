@@ -18,7 +18,7 @@ def simulate(debug=False, debug_file='log.txt'):
     insts = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='linkedin_inst', th=1000, min_len=3))
     names = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='aminer_names', th=10, min_len=5))
     years = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='year'))
-    venues = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='dblp_venues', th=1000, min_len=3))
+    venues = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='aminer_venues', th=1000, min_len=3))
 
     # keywords = list(dm.read_lexicon_set(keep_mention = False, from_file = True, filename = 'aminer_keywords'))
     # insts = list(dm.read_lexicon_set(keep_mention = False, from_file = True, filename = 'linkedin_inst'))
@@ -178,15 +178,22 @@ def simulate(debug=False, debug_file='log.txt'):
         search_venue_node, u"搜会议", 0.3)
     annos = s.generate(10000)
     if debug:
-        fout = utils.open_file(debug_file, 'w')
+        # fout = utils.open_file(debug_file, 'w')
+        f1 = utils.open_file('entity.txt', 'w')
+        # f2 = utils.open_file('out.txt', 'w')
         for anno in annos:
-            fout.write(u"{} {}\n".format(anno['intent'], anno['question']['text']))
+            # fout.write(u"{} {}\n".format(anno['intent'], anno['question']['text']))
+            for item in anno['entity_mentions']:
+                if item:
+                    f1.write(u"{} {}\n".format(item['snippet'], item['entity']))
+            f1.write('\n')
+            # f2.write(u"{}\n".format(anno['question']['text']))
     else:
         save_db_from_json.test('aminer@aminer.org', 'scholar.test', None, annos=annos)
 
 
 def test():
-    simulate(debug=False)
+    simulate(debug=True)
 
 
 if __name__ == '__main__':

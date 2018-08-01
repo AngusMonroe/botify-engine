@@ -1,23 +1,27 @@
 # -*- coding: utf-8 -*-
 import json
 from data.anno import *
-from db import mongo
+# from db import mongo
+import mongoengine
 import datetime
 import utils
 from config import *
 
 def test(b_email, b_name, filename, annos = None, no_data = False):
 
-    mongo.connect()
+    # mongo.connect()
 
-    b = Business.objects(email=b_email, name=b_name).first()
+    b = Business(email=b_email, name=b_name)
+    print(b.name)
+    raise NotImplemented
+
     if b is not None:
         Intent.objects(business_id = b.id).delete()
         Entity.objects(business_id = b.id).delete()
         Question.objects(business_id = b.id).delete()
     else:
         b = Business(email = b_email, name = b_name)
-        b.save()
+        # b.save()
 
     if no_data:
         return
