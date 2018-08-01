@@ -18,8 +18,8 @@ db = client[db_name]
 collection_set01 = db['publication_dupl']
 
 dic = {}
-for i, r in enumerate(collection_set01.find()):
-        if r['lang'] == 'en' and 'venue' in r.keys():
+for i, r in enumerate(collection_set01.find({'lang': 'en'})):
+        if 'venue' in r.keys():
             if 'raw' in r['venue'].keys():
                 if r['venue']['raw'] in dic.keys():
                     dic[r['venue']['raw']] += 1
