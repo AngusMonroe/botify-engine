@@ -18,7 +18,7 @@ def simulate(debug=False, debug_file='log.txt'):
     insts = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='linkedin_inst', th=1000, min_len=3))
     names = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='aminer_names', th=10, min_len=5))
     years = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='year'))
-    venues = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='aminer_venues', th=1000, min_len=3))
+    venues = list(dm.read_lexicon_set(keep_mention=False, from_file=True, filename='bigsci_venues', th=1000, min_len=3))
 
     # keywords = list(dm.read_lexicon_set(keep_mention = False, from_file = True, filename = 'aminer_keywords'))
     # insts = list(dm.read_lexicon_set(keep_mention = False, from_file = True, filename = 'linkedin_inst'))

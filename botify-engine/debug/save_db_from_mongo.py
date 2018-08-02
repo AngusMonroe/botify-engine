@@ -3,7 +3,7 @@
 import pymongo
 from urllib import parse
 
-passwd = "datiantian123!@#"
+passwd = input("Please input the password:")
 passwd = parse.quote(passwd)  # 对密码先进行编码
 mango_uri = 'mongodb://%s:%s@%s:%s/%s' % ("kegger", passwd, "166.111.7.173", "30019", "admin")
 client = pymongo.MongoClient(mango_uri, unicode_decode_error_handler='ignore')
