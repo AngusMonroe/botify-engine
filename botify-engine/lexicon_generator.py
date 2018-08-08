@@ -108,6 +108,7 @@ def get_partial(word, part_2):
     if len(word) == 2 and part_2:
         yield word[1]
 
+
 def dfs(words, modes, i, res, subs, part_2):
     if i == len(words):
         new_word = u"".join(subs)
@@ -126,11 +127,13 @@ def dfs(words, modes, i, res, subs, part_2):
         subs[i] = words[i]
         dfs(words, modes, i + 1, res, subs, part_2)
 
+
 def generate(words, modes, part_2):
     res = []
     subs = [u"" for _ in range(len(words))]
     dfs(words, modes, 0, res, subs, part_2)
     return res
+
 
 def get_sep_by_lang(lang):
     if lang == 'zh':
@@ -138,8 +141,10 @@ def get_sep_by_lang(lang):
     else:
         return u' '
 
+
 def strip_spans(s):
     return [t[0] for t in s]
+
 
 def span_tokenize(s, lang = 'zh', character_per_span = False):
     if s == '':
@@ -153,6 +158,7 @@ def span_tokenize(s, lang = 'zh', character_per_span = False):
         tokens_with_spans = [(s[span[0]: span[1]], span[0], span[1]) for span in spans]
     return tokens_with_spans
 
+
 def process(ent, mode_func, part_2):
     sub_ents = ent.split(u'/')
     res = []
@@ -163,9 +169,11 @@ def process(ent, mode_func, part_2):
         res.extend(aliases)
     return list(set(res))
 
+
 def load_from_short_file(name, full = False, th = -1, min_len = -1, use_mention2values = False):
     filename = '{}/{}.txt'.format(LEXICON_DIRECTORY, name)
     return load_from_file(filename, full, th, min_len, use_mention2values)
+
 
 def load_from_file(filename, full = False, th = -1, min_len = -1, use_mention2values = False):
     if not use_mention2values:
@@ -221,6 +229,7 @@ def load_from_file(filename, full = False, th = -1, min_len = -1, use_mention2va
         print('lexicon size of', filename, ':', len(mention2values))
         return mention2values
 
+
 def load_mapping():
     mapping_filename = "{}/filename_entity.mapping".format(LEXICON_DIRECTORY)
     filename2entity = {}
@@ -240,6 +249,7 @@ def load_mapping():
     fin.close()
     entity2filename = {v: k for k, v in filename2entity.items()}
     return filename2entity, entity2filename, filename2entity_type
+
 
 class lexicon_generator:
 
@@ -284,6 +294,7 @@ class lexicon_generator:
                 fout.write(u"{}:{}\n".format(ent, u",".join(aliases)))
             else:
                 fout.write(u"{}\n".format(ent))
+
 
 def test():
     print(strip_spans(span_tokenize(u'河北考生理科男342')))

@@ -144,6 +144,7 @@ class data_manager:
                 l_mention = LexiconMention(name = name, type = type, lexicon_id = lexicon.id)
                 l_mention.save()
 
+
 def test():
     # b = Business.objects(name = 'edu.test').first()
     # dm = data_manager(b.id)

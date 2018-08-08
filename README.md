@@ -11,3 +11,13 @@
 ```
 python scholar_simulator.py
 ```
+
+## File orgnization
+
+```
+|- train.py 
+|- debug.py 
+|- [dir] data (word library)
+|- [dir] eval (help tools when creating)
+|- [dir] features (word feature)
+```

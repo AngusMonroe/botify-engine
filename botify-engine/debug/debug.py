@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 file = open("../data/lexicons/bigsci_venues.txt", "r", encoding="utf8")
 flag = False
 for i, line in enumerate(file.readlines()):
