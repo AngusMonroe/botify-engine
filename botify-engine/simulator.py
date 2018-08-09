@@ -54,11 +54,11 @@ def lemmatize_a_word(word, pos='n'):
 
 
 class node:
-    def __init__(self, content = None,
-        entity = None, role = None,
-        exchangeable = False, pick_one = False,
-        p_dropout = 0.0, p_cut = 0.0, p_word_cut = 0.0,
-        lang = 'zh', gen_lemmas = False, lemma_pos = 'n'):
+    def __init__(self, content=None,
+        entity=None, role=None,
+        exchangeable=False, pick_one=False,
+        p_dropout=0.0, p_cut=0.0, p_word_cut=0.0,
+        lang='en', gen_lemmas=False, lemma_pos='n'):
 
         """
         content: list or unicode.
@@ -174,14 +174,14 @@ class node:
 
 class simulator:
 
-    def __init__(self, lang = 'zh'):
+    def __init__(self, lang='en'):
         random.seed(13)
         self.roots = []
         self.intents = []
         self.weights = []
         self.sep = lg.get_sep_by_lang(lang)
 
-    def add_root(self, root, intent, weight = 1.0):
+    def add_root(self, root, intent, weight=1.0):
         self.roots.append(root)
         self.intents.append(intent)
         self.weights.append(weight)

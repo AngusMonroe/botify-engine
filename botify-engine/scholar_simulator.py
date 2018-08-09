@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import save_db_from_json
 from simulator import *
-import lexicon_generator as lg
 from data_manager import *
 
 
-def simulate(debug=False, debug_file='log.txt'):
+def simulate(debug_file='log.txt'):
     """
     debug (bool): True to print sentences to file, False to save it to db
     debug_file (str): the file name to save the debug output
@@ -176,24 +174,22 @@ def simulate(debug=False, debug_file='log.txt'):
 
     s = simulator().add_root(search_expert_node, u"搜学者", 0.6).add_root(search_paper_node, u"搜文章", 0.6).add_root(
         search_venue_node, u"搜会议", 0.3)
-    annos = s.generate(100000)
-    if debug:
-        fout = utils.open_file(debug_file, 'w')
-        # f1 = utils.open_file('entity.txt', 'w')
-        # f2 = utils.open_file('out.txt', 'w')
-        for anno in annos:
-            fout.write(u"{} {}\n".format(anno['intent'], anno['question']['text']))
-            # for item in anno['entity_mentions']:
-            #     if item:
-            #         f1.write(u"{} {}\n".format(item['snippet'], item['entity']))
-            # f1.write('\n')
-            # f2.write(u"{}\n".format(anno['question']['text']))
-    else:
-        save_db_from_json.test('aminer@aminer.org', 'scholar.test', None, annos=annos)
+    annos = s.generate(1000000)
+
+    # fout = utils.open_file(debug_file, 'w')
+    f1 = utils.open_file('entity.txt', 'w')
+    f2 = utils.open_file('out.txt', 'w')
+    for anno in annos:
+        # fout.write(u"{} {}\n".format(anno['intent'], anno['question']['text']))
+        for item in anno['entity_mentions']:
+            if item:
+                f1.write(u"{} {}\n".format(item['snippet'], item['entity']))
+        f1.write('\n')
+        f2.write(u"{}\n".format(anno['question']['text']))
 
 
 def test():
-    simulate(debug=True)
+    simulate()
 
 
 if __name__ == '__main__':

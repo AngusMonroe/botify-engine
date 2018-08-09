@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from data.anno import *
-from mongoengine import *
 from collections import defaultdict as dd
 import lexicon_generator as lg
 from config import *
