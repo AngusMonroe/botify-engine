@@ -191,6 +191,10 @@ class simulator:
         annos = []
         self.unk_cnt = 0
         for _ in range(num):
+
+            if _ % 1000 == 0:
+                print('num is: ' + str(_))
+
             i = weighted_sample(self.weights)
             text, entity, role = self.roots[i].generate()
             if len(text) == 0:  # filter out empty simulation

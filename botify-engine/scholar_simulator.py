@@ -176,18 +176,19 @@ def simulate(debug_file='log.txt'):
         search_venue_node, u"搜会议", 0.3)
     annos = s.generate(1000000)
 
-    # fout = utils.open_file(debug_file, 'w')
-    f1 = utils.open_file('entity.txt', 'w')
-    f2 = utils.open_file('out.txt', 'w')
+    fout = utils.open_file(debug_file, 'w')
+    # f1 = utils.open_file('entity.txt', 'w')
+    # f2 = utils.open_file('out.txt', 'w')
     for anno in annos:
-        # fout.write(u"{} {}\n".format(anno['intent'], anno['question']['text']))
-        for item in anno['entity_mentions']:
-            if item:
-                f1.write(u"{} {}\n".format(item['snippet'], item['entity']))
-        f1.write('\n')
-        f2.write(u"{}\n".format(anno['question']['text']))
-
-
+        fout.write(u"{} {}\n".format(anno['intent'], anno['question']['text']))
+    #     for item in anno['entity_mentions']:
+    #         if item:
+    #             f1.write(u"{} {}\n".format(item['snippet'], item['entity']))
+    #     f1.write('\n')
+    #     f2.write(u"{}\n".format(anno['question']['text']))
+    # f1.close()
+    # f2.close()
+    fout.close()
 def test():
     simulate()
 

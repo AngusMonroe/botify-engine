@@ -112,3 +112,4 @@ botify-engine/data.txt
 botify-engine/entity.txt
 botify-engine/log.txt
 botify-engine/out.txt
+*.dat
