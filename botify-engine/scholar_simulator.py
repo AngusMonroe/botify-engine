@@ -174,7 +174,7 @@ def simulate(debug_file='log.txt'):
 
     s = simulator().add_root(search_expert_node, u"搜学者", 0.6).add_root(search_paper_node, u"搜文章", 0.6).add_root(
         search_venue_node, u"搜会议", 0.3)
-    annos = s.generate(1000000)
+    annos = s.generate(100000)
 
     fout = utils.open_file(debug_file, 'w')
     # f1 = utils.open_file('entity.txt', 'w')
